@@ -1,8 +1,9 @@
 # cesium-demo
   
-  Cesium 三维可视化 
+  **<font size=4>简介</font>**
+  Cesium 三维可视化 ，CesiumJS是一个用于世界级3D地球仪和地图的开源JavaScript库
   
-  CesiumJS是一个用于世界级3D地球仪和地图的开源JavaScript库
+  3D模型支持的文件格式有：.gltf / .glb / tileset.json等等
   
   <a href="https://cesium.com/docs/tutorials/getting-started/" target="_blank">官方入门教程</a>
 
