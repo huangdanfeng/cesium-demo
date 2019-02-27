@@ -15,7 +15,7 @@
   
   进入cesium-putong文件夹，然后使用http-server启动项目:
   
-  ![avatar](/localhost.png)
+  ![avatar](/localhost.png){:height="300" width="300"}
   
   最后浏览器打开http://127.0.0.1:8081/index.html
   
