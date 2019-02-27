@@ -9,6 +9,6 @@
 
 ##启动
 进入cesium-putong文件夹，然后使用http-server启动项目:
-![mahua](mahua-logo.jpg)
+![avatar](/Users/huangdanfeng/Desktop)
 浏览器打开http://127.0.0.1:8081/index.html
 
