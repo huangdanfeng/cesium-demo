@@ -23,5 +23,5 @@
   
   最后浏览器打开http://127.0.0.1:8081/getposition.html
     
-  <img src="/image/getposition.png"  width="600" height="400">
+  <img src="/image/getposition.png"  width="750" height="400">
 
