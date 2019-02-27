@@ -19,5 +19,5 @@
   
   最后浏览器打开http://127.0.0.1:8081/index.html
     
-    <img src="/getposition.png"  width="250" height="140">
+  <img src="/getposition.png"  width="250" height="140">
 
