@@ -4,7 +4,7 @@
   
   CesiumJS是一个用于世界级3D地球仪和地图的开源JavaScript库
   
-  [入门教程](https://cesium.com/docs/tutorials/getting-started/)
+  [官方入门教程](https://cesium.com/docs/tutorials/getting-started/)
 
   **<font size=4>安装</font>**
   
