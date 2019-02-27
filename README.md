@@ -18,5 +18,6 @@
   ![avatar](/localhost.png){:height="300" width="300"}
   
   最后浏览器打开http://127.0.0.1:8081/index.html
-  
-  <div width="300px" height="300px">![avatar](/getposition.png)</div>
+    
+    <img src="/getposition.png"  width="250" height="140">
+
