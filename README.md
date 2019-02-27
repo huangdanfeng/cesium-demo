@@ -1,7 +1,10 @@
 # cesium-demo
-##cesium 三维可视化
-##安装
-由于cesium启动需要服务器，不可以直接打开html，所以先装http-server
+  
+  cesium 三维可视化
+  
+  安装
+  
+  由于cesium启动需要服务器，不可以直接打开html，所以先装http-server
 
 ```javascript
   npm install http-server -g
