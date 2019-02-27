@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Hello World!</title>
+    <script src="./Build/Cesium/Cesium.js"></script>
+    <!-- <script src="https://cesiumjs.org/releases/1.53/Build/Cesium/Cesium.js"></script>
+     <link href="https://cesiumjs.org/releases/1.53/Build/Cesium/Widgets/widgets.css" rel="stylesheet">-->
+    <style>
+        @import url(./Build/Cesium/Widgets/widgets.css);
+        html, body, #cesiumContainer {
+            width: 1000px; height: 700px; margin: 0; padding: 0; overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="cesiumContainers"></div>
+<script>
+    var viewer = new Cesium.Viewer('cesiumContainers');
+
+
+
+    var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
+        Cesium.Cartesian3.fromDegrees(102.73, 25.04,  0));
+    var model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+        url : './js/model.gltf',
+        modelMatrix : modelMatrix,
+        scale : 10.0,
+        maximumScreenSpaceError: 16 // default value
+    }));
+    viewer.camera.zoomTo(model);
+
+</script>
+</body>
+</html>

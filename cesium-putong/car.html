@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Hello World!</title>
+    <script src="./Build/Cesium/Cesium.js"></script>
+    <!-- <script src="https://cesiumjs.org/releases/1.53/Build/Cesium/Cesium.js"></script>
+     <link href="https://cesiumjs.org/releases/1.53/Build/Cesium/Widgets/widgets.css" rel="stylesheet">-->
+    <style>
+        @import url(./Build/Cesium/Widgets/widgets.css);
+        html, body, #cesiumContainer {
+            width: 1000px; height: 700px; margin: 0; padding: 0; overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="cesiumContainers"></div>
+<script>
+    var viewer = new Cesium.Viewer('cesiumContainers',{
+        shouldAnimate: true, //时间默认会动
+
+    });
+
+
+
+    var dataSourcePromise = Cesium.CzmlDataSource.load('./js/ClampToGround.czml',{
+        clampToGround: true //开启贴地
+
+    });
+    viewer.dataSources.add(dataSourcePromise);
+    viewer.zoomTo(dataSourcePromise);
+
+
+    //监听鼠标左键点击事件
+    viewer.screenSpaceEventHandler.setInputAction(function(movement){
+        //获取具有primitives属性的对象
+        var feature = viewer.scene.pick(movement.position);
+        console.log(feature)
+    },Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+
+</script>
+</body>
+</html>

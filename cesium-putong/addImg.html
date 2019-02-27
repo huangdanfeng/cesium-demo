@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Hello World!</title>
+    <script src="./Build/Cesium/Cesium.js"></script>
+    <!-- <script src="https://cesiumjs.org/releases/1.53/Build/Cesium/Cesium.js"></script>
+     <link href="https://cesiumjs.org/releases/1.53/Build/Cesium/Widgets/widgets.css" rel="stylesheet">-->
+    <style>
+        @import url(./Build/Cesium/Widgets/widgets.css);
+        html, body, #cesiumContainer {
+            width: 1000px; height: 700px; margin: 0; padding: 0; overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZGM2MGRjYi1kNjVjLTRlNDEtOGZlYS0yOTk0OGU5NjdjNDEiLCJpZCI6NjkxMCwic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTU0NzY5MTQ0M30.SUqZB4nFWP5ftgJXsmJa9zh0qISmqLvXzoG9crFiR38';
+    var viewer = new Cesium.Viewer('cesiumContainer',{
+        animation: true,    //创建“动画”窗口小部件
+        baseLayerPicker: true,  //图层选择器
+        fullscreenButton: true, //全屏按钮
+        vrButton: true,  //vr模式按钮
+        geocoder: true,  //搜索按钮
+        homeButton: true,   //视觉返回初始位置
+        infoBox: false,
+        sceneModePicker: true,   //视觉选择器
+        selectionIndicator: false,
+        timeline: true,    //时间线
+        navigationHelpButton: true,  //导航帮助按钮
+        navigationInstructionsInitiallyVisible: false, //导航帮助按钮下拉框true为默认可见
+        scene3DOnly: false,  //视觉选择器只展示3d效果
+        shouldAnimate: true, //时间默认会动
+        terrainProvider: Cesium.createWorldTerrain(),  //高分辨率全球地形资产
+        clockViewModel: new Cesium.ClockViewModel(new Cesium.Clock({
+            startTime : Cesium.JulianDate.fromIso8601("2018-12-25"),
+            currentTime : Cesium.JulianDate.fromIso8601("2018-12-25"),
+            stopTime : Cesium.JulianDate.fromIso8601("2018-12-26"),
+            clockRange : Cesium.ClockRange.LOOP_STOP,
+            clockStep : Cesium.ClockStep.SYSTEM_CLOCK_MULTIPLIER,
+            multiplier: 4000,
+            shouldAnimate: true
+        }))
+    });
+    viewer.scene.globe.enableLighting = true;  //光照效果
+    viewer._bottomContainer.style.display = 'none'; //隐藏信用
+    console.log(viewer);
+
+    viewer.imageryLayers.remove(viewer.imageryLayers.get(0));
+    var layer = viewer.imageryLayers.addImageryProvider(
+        new Cesium.IonImageryProvider({ assetId: 3954 })
+    );
+
+
+</script>
+</body>
+</html>

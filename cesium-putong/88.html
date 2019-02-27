@@ -1,0 +1,148 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>titleset</title>
+    <script src="Build/Cesium/Cesium.js"></script>
+    <script>
+        var fixGltf = function(gltf) {
+            if (!gltf.extensionsUsed) {
+                return;
+            }
+
+            var v = gltf.extensionsUsed.indexOf('KHR_technique_webgl');
+            var t = gltf.extensionsRequired.indexOf('KHR_technique_webgl');
+            // 中招了。。
+            if (v !== -1) {
+                gltf.extensionsRequired.splice(t, 1, 'KHR_techniques_webgl');
+                gltf.extensionsUsed.splice(v, 1, 'KHR_techniques_webgl');
+                gltf.extensions = gltf.extensions || {};
+                gltf.extensions['KHR_techniques_webgl'] = {};
+                gltf.extensions['KHR_techniques_webgl'].programs = gltf.programs;
+                gltf.extensions['KHR_techniques_webgl'].shaders = gltf.shaders;
+                gltf.extensions['KHR_techniques_webgl'].techniques = gltf.techniques;
+                var techniques = gltf.extensions['KHR_techniques_webgl'].techniques;
+
+                gltf.materials.forEach(function (mat, index) {
+                    gltf.materials[index].extensions['KHR_technique_webgl'].values = gltf.materials[index].values;
+                    gltf.materials[index].extensions['KHR_techniques_webgl'] = gltf.materials[index].extensions['KHR_technique_webgl'];
+
+                    var vtxfMaterialExtension = gltf.materials[index].extensions['KHR_techniques_webgl'];
+
+                    for (var value in vtxfMaterialExtension.values) {
+                        var us = techniques[vtxfMaterialExtension.technique].uniforms;
+                        for (var key in us) {
+                            if (us[key] === value) {
+                                vtxfMaterialExtension.values[key] = vtxfMaterialExtension.values[value];
+                                delete vtxfMaterialExtension.values[value];
+                                break;
+                            }
+                        }
+                    };
+                });
+
+                techniques.forEach(function (t) {
+                    for (var attribute in t.attributes) {
+                        var name = t.attributes[attribute];
+                        t.attributes[attribute] = t.parameters[name];
+                    };
+
+                    for (var uniform in t.uniforms) {
+                        var name = t.uniforms[uniform];
+                        t.uniforms[uniform] = t.parameters[name];
+                    };
+                });
+            }
+        }
+
+        Object.defineProperties(Cesium.Model.prototype, {
+            _cachedGltf: {
+                set: function (value) {
+                    this._vtxf_cachedGltf = value;
+                    if (this._vtxf_cachedGltf && this._vtxf_cachedGltf._gltf) {
+                        fixGltf(this._vtxf_cachedGltf._gltf);
+                    }
+                },
+                get: function () {
+                    return this._vtxf_cachedGltf;
+                }
+            }
+        });
+    </script>
+    <style>
+        @import url(Build/Cesium/Widgets/widgets.css);
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #getposition {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 600px;
+            background-color: gray
+        }
+        .c{
+            position: fixed;
+            display: none;
+            left:0;
+            top:0;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(0,255,255,0.5);
+
+        }
+        .v{
+            cursor: pointer;
+            word-break:break-all;
+            background:#fff;
+            position: fixed;
+            left: 40%;
+            top:40%;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="cesiumContainer">
+    <!--
+            <div id="cesiumxin" style="position:fixed;left:0;z-index:99"><a href="http://cesium.xin" style="color:aliceblue;text-decoration:none">cesium中文网 http://cesium.xin </a></div>
+    -->
+</div>
+
+<script>
+    var viewer = new Cesium.Viewer('cesiumContainer',{
+        shouldAnimate: true, //时间默认会动
+
+    });
+    var tileset = viewer.scene.primitives.add(new Cesium.Cesium3DTileset({
+        //url: 'data-model/88/tileset.json',
+        url: 'data-model/77/tileset1.json',
+        maximumScreenSpaceError: 2,  //提高细节化级别的最大屏幕空间错误
+        maximumNumberOfLoadedTiles: 1000,  //最大加载瓦片个数
+        //modelMatrix: m  //方法一，动态修改modelMatrix
+    }));
+    viewer.zoomTo(tileset);
+
+</script>
+</body>
+
+</html>
